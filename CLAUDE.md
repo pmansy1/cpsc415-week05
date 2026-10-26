@@ -4,28 +4,43 @@
      Graded: does it reflect how the team actually works? -->
 
 ## What this repository is
-One paragraph. Link to the current `spec.md`.
+A receipt extraction and validation tool that sends receipt photos to an OpenRouter vision model, extracts structured JSON, and verifies the arithmetic and date constraints in pure code. See [`spec.md`](./spec.md).
 
 ## Commands
-```
-# build
-# test
-# run
+```bash
+# test (unit tests, no API key needed)
+pytest tests/test_checker.py -v
+
+# eval (vision model evaluation, requires OPENROUTER_API_KEY)
+pytest tests/test_eval.py -v
+
+# run on a single receipt
+python3 extract.py images/receipt-01.png
+
 # lint
+ruff check .
 ```
 
 ## Conventions
-- Language and style rules the agent must follow.
-- Where tests live and how they are named.
-- Branch and PR naming.
+- Language: Python 3.10+
+- Unit tests live in `tests/test_checker.py` and run without an API key in <0.2s.
+- Model eval tests live in `tests/test_eval.py` and require `OPENROUTER_API_KEY`.
+- Pure checker logic is kept separate from LLM/vision API calls.
 
 ## Working rules
 
-For an introductory lab, follow its explicitly assigned stages; the full chain below applies to major projects. Week 1 uses its own minimal repository.
-
-- Write or update `intent/` and `spec.md` before code. Get `plan.md` approved before implementing.
-- One feature per branch and pull request. Never push to `main` directly.
-- Never commit `.env` or `.claude/settings.local.json`.
+- This is the Week 5 introductory lab. Stages assigned: intent, spec, plan,
+  and tests. No branches or pull requests yet. Commit to main.
+- Libraries and build tools are allowed. Name each dependency in spec.md
+  under Dependencies, with the reason, before installing it; a hook blocks
+  installs that spec.md does not list.
+- images/ and images/expected.json are the answer key. Never edit them. If
+  a test disagrees with the key, say so and stop.
+- Tests live in tests/ (Python) or src/test (Java). Tests that call a model
+  are marked and are skipped when no API key is set.
 
 ## Common mistakes
-Things the agent got wrong before and must not repeat. Add to this list as they happen.
+- Never edit or tamper with `images/` or `expected.json`.
+- Do not make a vision API call per test; share the cached extraction across test assertions.
+- Do not crash on non-JSON model output; catch and report errors gracefully.
+- Do not let the model guess years when not printed on receipts.
