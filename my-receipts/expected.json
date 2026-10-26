@@ -1,0 +1,14 @@
+{
+  "receipt-01.png": {
+    "merchant": "CVS Pharmacy",
+    "date": "2026-10-14",
+    "items": 3,
+    "total": 12.51
+  },
+  "receipt-02.png": {
+    "merchant": "The Cave Cafe & Grill",
+    "date": "2026-10-18",
+    "items": 3,
+    "total": 13.40
+  }
+}
