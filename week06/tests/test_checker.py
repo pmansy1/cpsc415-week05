@@ -109,3 +109,10 @@ def test_a_requirement_only_one_critic_answered_is_a_disagreement():
     b = [{"name": "x", "critique": {"checks": [{"requirement": REQS[0], "met": True},
                                                {"requirement": REQS[2], "met": True}]}}]
     assert [x["requirement"] for x in disagreements(a, b)[0]["diffs"]] == [REQS[1]]
+
+
+def test_a_critique_that_is_not_a_dict_is_a_failed_critique():
+    for not_a_dict in (["checks"], "met", 42):
+        result = check_checklist(REQS, not_a_dict)
+        assert not result["ok"]
+        assert result["missing"] == REQS

@@ -1,0 +1,7 @@
+Pass 2: Must fix before merge (1)
+  eval.py:48: `evaluate_imageset` raises `SystemExit` only when the injected provider reports unconfigured, but H-1 says eval.py exits before any call with no key; a real `OpenRouter()` with no `OPENROUTER_API_KEY` must be confirmed to report `configured() == False`, otherwise a no-key run reaches `provider.vision` -> Verify `provider.configured()` returns False when `OPENROUTER_API_KEY` is absent (and add a test asserting no `vision` call with the real provider class), or check `os.environ` directly before any call
+Pass 3: Should fix (1)
+  checklist.py:44: `_answers` silently drops checklist entries that lack a string `requirement` or are not dicts, so a malformed entry is neither reported as missing nor as extra — a critic could omit answers and still pass -> Count non-conforming entries as problems (e.g. treat them like missing/extra) so every given item is accounted for
+Pass 4: Nice to have (1)
+  imagesets/generate.py:1: Docstring uses `\\` line continuation in the usage examples, which renders as literal backslashes rather than a runnable command -> Use a single line or a trailing backslash outside the string so the example is copy-pasteable
+[xiaomi/mimo-v2.6-flash · 40971 in / 264 out · cost 0.001629306]

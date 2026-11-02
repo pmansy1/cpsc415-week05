@@ -1,0 +1,8 @@
+Pass 3: Should fix (4)
+  weather.py:16: The `CONDITIONS` tuple is table-driven data but its `condition()` refactor is unrelated to this PR's scope (Week 6 image sets and checklist critique), mixing an unrelated cleanup into the changeset -> Move the `condition()` refactor into its own commit/PR so this one stays reviewable against spec section 11
+  checklist.py:71: `check_checklist` uses `critique.get` before confirming `critique` is a dict; a JSON scalar reply (e.g. a bare string) raises `AttributeError` instead of returning the failed-critique result G-1 requires -> Guard with `isinstance(critique, dict)` before `.get('checks')`, or accept `extract_json` output only and test the scalar-JSON case
+  checklist.py:93: `disagreements` reads `answers_b[key]` in the `label = (answers_a.get(key) or answers_b[key])` expression; when the key exists only in `b`, `answers_a.get(key)` is falsy only if the value is falsy — a requirement answered `{'met': False}`... wait, the dict is truthy — but if the critic omitted `requirement`, `_answers` already filters, so this is actually safe -> None
+  eval.py:60: `evaluate_imageset` calls `disagreements(*per_model)` only when exactly 2 models are present, but with 1 model `per_model` is length 1 and the `if len(per_model) == 2` guard is correct — however with 3+ models only the first two are compared and the extra model's cost is billed with no disagreement output for it, which the printed hint covers -> None
+Pass 4: Nice to have (1)
+  tests/test_eval_imageset.py:18: Two stray blank lines between the imports and `FakeProvider` (three blank lines total) will trip `ruff check .` in the gate -> Reduce to a single blank line
+[xiaomi/mimo-v2.6-flash · 40895 in / 441 out · cost 0.000218986]

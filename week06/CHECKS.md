@@ -6,7 +6,7 @@ All runs on 2026-11-02 from `week06/`. The costs are the `usage.cost` values fro
 
 | Check | Command | Result |
 |---|---|---|
-| Checker and CLI tests, no key | `env -u OPENROUTER_API_KEY python3 -m pytest week06/tests -q` | **17 passed** in 0.44 s |
+| Checker and CLI tests, no key | `env -u OPENROUTER_API_KEY python3 -m pytest week06/tests -q` | **18 passed** in 0.40 s (17 at first; 1 added after the PR review found the non-dict case) |
 | Tests failed before the code existed | same command, before `checker.py` (commit `Image set: failing checker tests`) | collection error: `No module named 'checker'`. Then 3 CLI tests failed before `generate.py` / `critique.py` existed |
 | Linter | `ruff check .` (whole repository) | **No findings** ("All checks passed!"), both before and after the Week 6 code |
 
@@ -98,9 +98,66 @@ The **narrow question compared in code** was the only check that caught the real
 | mimo critiques (5) | $0.00191 |
 | Open-ended critique (1) | $0.00117 |
 | **Total for the image set** | **$0.13385** |
+| PR reviewer, 8 runs | $0.03936 |
+| **Total for the lab** | **$0.17321** |
 
 This is under the plan's $0.13–0.15 estimate and the intent's $0.50 ceiling. The PR reviewer's cost is in the Review section.
 
 ## 7. Review
 
-*(Filled in after the pull request in the team repository; see below.)*
+**PR:** https://github.com/Gabbykoms/fitlab/pull/8, branch `week06-patrick` → `main` in `Gabbykoms/fitlab`.
+
+**What the PR carries:**
+- `checklist.py`: this lab's checker, in FitLab's style.
+- `eval.py --imageset`: the checklist and placard read through FitLab's existing `provider.vision`, compared across the first two models.
+- `imagesets/patrick-occasions/`: these five images, with `prompts.json`, `manifest.json` and `imagesets/generate.py`.
+- Spec section **11**, the Week 5 guard (`.claude/hooks/guard.py` + `settings.json`), and `requirements.txt` with `openrouter` and `ruff`.
+
+**Tests before code:** `a3b556e` spec → `cbbd839` failing tests (`No module named 'checklist'`) → `370a647` implementation. Every later fix also started from a failing test.
+
+**Gate (`gate.sh` as `pre-push`):**
+- The first push was **stopped**: 2 failed, 127 passed. My async tests clashed with Playwright's event loop when run in the full suite (they passed alone). I fixed it with FitLab's `tests/fakes.run_async`.
+- Every later push passed: ruff clean, 129–133 passed.
+- `main` had 19 ruff errors in teammates' files before this PR. I fixed them in a separate commit (`88c2f2e`), flagged in the PR description, because the gate can't pass otherwise.
+
+**Reviewer runs** (`examples/pr-review/review.py --base origin/main`, logs in `week06/review/`):
+
+| Run | Commit | Model | Exit | Cost |
+|---|---|---|---|---|
+| 1 | 5f62295 | minimax/minimax-m3 | **2**: empty reply, 1,999 of 2,000 output tokens spent on hidden reasoning (39k-token input) | $0.01433 |
+| 2 | 5f62295 | minimax/minimax-m3 | **2**: same | $0.00457 |
+| 3 | 5f62295 | xiaomi/mimo-v2.6-flash | **1** | $0.00465 |
+| 4 | e3b9688 | mimo | **2**: found nothing but wrote "PASS" instead of "NONE" | $0.00462 |
+| 5 | e3b9688 | mimo | **0** | $0.00022 |
+| 6 | 4a52c3c | mimo | 1 | $0.00163 |
+| 7 | fa0fb4c | mimo | 1 | $0.00464 |
+| 8 | 1e39555 | mimo | **1**, last run | $0.00469 |
+
+**Reviewer total: $0.0394.**
+
+**Findings by pass, and what I did:**
+- **Pass 1** (4 across runs):
+  - "README claims unverifiable": wrong category, since the images are in the diff. Reworded to "open the images to verify".
+  - "Spec silently changed to match the code" (raised 3 times): **pushed back**. The commit order (`a3b556e` before `cbbd839` and `370a647`) is in the PR. I added the named sign-off line, and found the reviewer had missed that my section was numbered **8**, colliding with the existing Section 8. Renumbered to **11**.
+  - "`disagreements(*per_model)` raises `TypeError` with one model": **false**, because the conditional prevents the call. Proved with a test (`1e39555`).
+- **Pass 2** (6 across runs):
+  - `generate.py` broad except: **partly real**. Printing `{exc}` could leak a provider error body (against FitLab's CLAUDE.md). It now prints only the type and HTTP status, and `--out` is required.
+  - "H-1 relies on `configured()`" (raised twice): **pushed back**, then settled with a test against the real `OpenRouter` class (`fa0fb4c`).
+  - "Key-check ordering": the finding itself says "which is fine".
+  - "`entry['name']` / manifest without `requirements` → `KeyError`": **pushed back**. Our own scripts write those files; they aren't model output.
+- **Pass 3:**
+  - `check_checklist` on a non-dict critique raised `AttributeError`: **real, fixed test-first** in both FitLab (`4a52c3c`) and this repo.
+  - Only the first two models compared: now reported (`compared_models`).
+  - `pytest.raises`: done.
+  - Weather refactor out of scope: answered (the gate needed it).
+  - "Malformed entries let a critic pass": false, because they show up as missing.
+- **Pass 4:**
+  - Manifest vs prompts drift: documented.
+  - "Blank lines trip ruff": false.
+  - "`\\` in docstring": false.
+
+**Last exit code: 1** (run 8). Every pass-1 and pass-2 finding in it is answered on the PR. I stopped rerunning there: the reviewer is non-deterministic, and each run raised new findings, most of them false or self-contradicting (run 7's pass-2 finding concedes "which is fine"). Rerunning until a random draw exits 0 would treat the exit code as the verdict, which is what `REVIEW.md` says it isn't.
+
+**What the gate catches that `REVIEW.md` can't:** the gate *runs* the code. My event-loop clash only appeared when the full suite ran, and no reader of the diff, human or model, flagged it. `REVIEW.md` is read by a model that sees only the diff, and it was confidently wrong several times above.
+
+**Approved by:** *pending.* Waiting on Gabriel or Nadia to approve on GitHub. Not merged yet.

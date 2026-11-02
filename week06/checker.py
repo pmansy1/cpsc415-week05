@@ -35,9 +35,9 @@ def _answers(critique: dict) -> dict[str, dict]:
             if isinstance(c, dict) and isinstance(c.get("requirement"), str)}
 
 
-def check_checklist(requirements: list[str], critique: dict | None) -> dict:
+def check_checklist(requirements: list[str], critique: object) -> dict:
     """Compare the critic's checklist with the requirements it was given."""
-    if critique is None or not isinstance(critique.get("checks"), list):
+    if not isinstance(critique, dict) or not isinstance(critique.get("checks"), list):
         return {"ok": False, "problems": [NOT_A_CHECKLIST], "unmet": [],
                 "missing": list(requirements), "extra": []}
     answered = _answers(critique)
