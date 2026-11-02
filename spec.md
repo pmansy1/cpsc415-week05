@@ -57,3 +57,59 @@ Implements [`intent/receipts.md`](./intent/receipts.md).
 - Multi-currency conversion or live exchange rates.
 
 **Approved by:** Patrick Manswell, October 26, 2026
+
+---
+
+## Week 6: image set
+
+Implements [`intent/image-set.md`](./intent/image-set.md). Code lives in `week06/`.
+
+### 3. Generator (`week06/generate.py`)
+- **What it does:** Reads `prompts.json` (five prompts, each with a seed, yes/no requirements and the expected placard text). Calls OpenRouter's **Image API** once per prompt, saves each image, and writes `images/manifest.json` with prompt, seed, model, media type, file, seconds and the cost from the reply's `usage.cost`.
+- **Language:** Python 3. **Why:** the same language as my Week 5 reader and FitLab's backend, so the checker can move into the team repository unchanged. Alternative: Java with `java.net.http`. Permitted, but I would write the Image API request by hand, and FitLab is Python.
+- **Model:**
+  - Default: `black-forest-labs/flux.2-klein-4b`. **Why:** cheap (about $0.014 per image on Oct 19, 2026), accepts a seed, and is fast enough to generate five images in one sitting.
+  - Comparison: `google/gemini-3.1-flash-lite-image`, run on **one** prompt with the same seed. **Why:** FitLab's generator uses the Gemini image family, so this shows how the class default compares with ours on the same requirements. It is priced per image token, about $0.03–0.04 per image.
+- **Interfaces:** `python3 generate.py prompts.json --out images [--model M]`. With no `OPENROUTER_API_KEY` it prints one line and exits 1; nothing is billed.
+- **Dependencies:** `openrouter` (see Dependencies).
+
+### 4. Critic-checker (`week06/checker.py`, `week06/critique.py`)
+- **What it does:** For each image in the manifest, sends the image plus a yes/no **checklist** made from that prompt's requirements to a vision model and asks for JSON. Then asks a second, **narrow** question: "write the text on the placard exactly as printed". Plain code (`checker.py`, no model, no key) then:
+  - extracts the JSON,
+  - checks every requirement was answered, none was invented, and each was met,
+  - compares the placard read with the expected text.
+
+  With `--compare`, it lists every requirement and text read where two critique files disagree.
+- **Language:** Python 3, for the same reasons as the generator. The checker is pure functions so it can be tested without a key.
+- **Model:**
+  - Critic: `minimax/minimax-m3`, with reasoning **on**. **Why:** it was the stronger reader in my Week 5 receipt lab.
+  - Second model to check the critic: `xiaomi/mimo-v2.6-flash`, with reasoning **off** (`reasoning={"effort": "none"}` in the SDK, or the reply is empty). **Why:** a different vendor and much cheaper. Where they disagree, a person looks.
+- **Interfaces:**
+  - `python3 critique.py images/manifest.json [--model M] [--out FILE]`
+  - `python3 critique.py --compare A.json B.json` (no key needed)
+  - `checker.py` exposes `extract_json`, `check_checklist`, `text_matches` and `disagreements`.
+- **Dependencies:** `openrouter`, imported only on the billed path, so the tests never need it.
+
+### Week 6 dependencies
+- `openrouter`: the OpenRouter Python SDK. **Why:** the Image API (`client.images.generate`) has its own request and reply shape (`data[0].b64_json`, `media_type`, `usage.cost`). The SDK types it, and the same client sends the chat request with an image part for the critique. Hand-written `urllib` would duplicate both request shapes and their error handling. Imported lazily, so no-key runs work without it installed.
+
+### Week 6 behaviors
+9. **A critique that is not JSON is a failed critique, not a crash.** The checker reports every requirement as unanswered.
+10. **JSON inside prose or code fences is extracted** and checked normally.
+11. **A requirement the critic did not answer is a problem**, even if every answered item is met.
+12. **A requirement the critic invented** (an item not in the checklist) is a problem.
+13. **An unmet requirement is reported by name.**
+14. Requirement text is matched **after normalizing case and punctuation**, so "there is a mannequin." answers "There is a mannequin".
+15. **Expected text is compared in code, not by the critic:** the model only reads the placard back. `"WEDDING"` vs `"WEDOING"` is a mismatch. Case and punctuation are ignored, letters are not.
+16. **`--compare` reports every requirement and text read where two critique files disagree**, and nothing when they agree.
+17. **No key means no billed call:** `generate.py` and `critique.py` exit 1 with one line. Tests that would call a model are skipped.
+18. **The manifest records prompt, seed, model, media type and cost per image.** Cost comes from the reply's `usage.cost`, not an estimate.
+
+### Week 6 failure handling
+- An empty reply, or one cut off at the token limit (`finish_reason == "length"`), is recorded with its usage and counted as a failed critique.
+- An Image API error stops the run with the HTTP status. The images already saved, and a manifest for them, are kept.
+
+### Week 6 cost estimate
+- Five FLUX images: about $0.07. One comparison image: about $0.04.
+- Five m3 critiques plus five placard reads: about $0.005. The same on mimo: about $0.001.
+- **One full eval: about $0.12.** If it is run in a loop by mistake, each pass costs another $0.12, so nothing calls a model from inside the tests.
