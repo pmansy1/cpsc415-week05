@@ -65,3 +65,56 @@
 None required. All tasks execute sequentially in accordance with TDD principles.
 
 **Approved by:** Patrick Manswell, October 26, 2026
+
+---
+
+# Week 6
+
+## Files to create or change
+| File | Purpose |
+|---|---|
+| `week06/checker.py` | Pure functions: `extract_json`, `check_checklist`, `text_matches`, `disagreements`. No model, no key. |
+| `week06/tests/conftest.py` | Makes `week06/` importable from the tests. |
+| `week06/tests/test_checker.py` | No-key tests for every Week 6 behavior (9–16). |
+| `week06/tests/test_cli.py` | No-key tests that both scripts exit 1 with no key, and that `--compare` runs without one (behavior 17). |
+| `week06/generate.py` | Image API calls; writes `images/manifest.json`. |
+| `week06/critique.py` | Vision calls (checklist plus the narrow placard read); `--compare`. |
+| `week06/prompts.json` | Five occasion prompts, seeds 601–605, requirements, expected placard text. |
+| `week06/images/`, `week06/images-nb/`, `week06/images-seed/` | Generated images and manifests (FLUX set, comparison model, seed re-run). |
+| `week06/critique.json`, `week06/critique-mimo.json` | Critiques from both vision models. |
+| `week06/CHECKS.md` | Per-image results, the seed check, the comparison model, the critic checked, ruff, the Review. |
+
+## Order of work
+1. Tests for `checker.py` (behaviors 9–16). Run them and watch them **fail**.
+2. `checker.py` until green. Run `ruff check .`. Commit `Image set: checker with tests`.
+3. Tests for the no-key exits (17), then `generate.py` and `critique.py`.
+4. `prompts.json`. Look at it once more: are the requirements yes/no and visible?
+5. Billed eval: five FLUX images, then five m3 critiques. Look at the images **before** reading the critiques.
+6. Seed re-run of one prompt and the comparison model on one prompt.
+7. The mimo critiques, `--compare`, an open-ended critique of one image, and CHECKS.md.
+8. Team repo: branch `week06-patrick`, tests first, PR, reviewer, replies, teammate approval.
+
+## Risks
+- **The critic is wrong and the code can't tell.** The code knows only whether the critic answered the checklist, not whether its answers are true. A wrong "met" is caught only by the second model or by a person (see Q1).
+- **Image models misspell short words on signs.** That is the point of the placard read, but a misspelled placard in an otherwise good image is a real failure, not a bug in the checker.
+- **Reasoning settings.** mimo with reasoning on returns an empty reply, and m3 needs it on. A wrong setting looks like "not JSON" every time.
+- **A billed loop.** Any model call inside a test, or a rerun loop in a script, multiplies the cost (see Q2).
+- **The guard is permissive.** It looks for the package name anywhere in `spec.md`, so "OpenRouter" in prose already lets `openrouter` through. I'll note it in CHECKS.md rather than change a Week 5 artifact.
+
+## Proof
+### No key (free, under a second, run by the gate)
+- `test_checker.py`: all met → ok; one unmet → named; one requirement missing → problem; one invented → problem; reply not JSON → failed critique with every requirement missing, no exception; JSON inside prose and fences → extracted; requirement text matched after normalizing; `"WEDDING"` vs `"WEDOING"` → mismatch; two critique files → the exact disagreements, and none for identical files. **Proves:** the code's comparison is right. **Cost:** $0.
+- `test_cli.py`: both scripts exit 1 with no key; `--compare` works without one. **Proves:** nothing is billed by accident. **Cost:** $0.
+
+### Billed eval (run by a person, results go in CHECKS.md)
+- Five FLUX generations plus five m3 critiques (checklist and placard read): **about $0.075**.
+- Seed re-run of one prompt: about $0.014. Comparison model on one prompt: about $0.04.
+- Five mimo critiques: about $0.001.
+- **Total about $0.13.** **Proves:** what the models actually do on our prompts. It doesn't prove the checker, because the no-key tests already do that.
+
+## Questions asked of the plan, and the answers
+1. **"If the critic says a requirement is unmet and it is actually met, which test notices?"** No automated test can. The no-key tests prove the code reports what the critic said, not whether the critic was right. It is noticed by the **second model disagreeing** (`--compare`) and then by **me looking at the image**. That disagreement-then-look step is now step 7 of the order of work, with a CHECKS.md line per disagreement.
+2. **"What does one run of the eval cost, and what happens if I run it in a loop by mistake?"** About $0.09 for the five images plus both critique sets, and each extra pass repeats it. Corrections made: no test calls a model; the scripts exit with no key; the gate strips the key; and my OpenRouter key has a credit limit.
+3. **"What does the same seed guarantee, and how would I check that?"** The same model, prompt and seed should give the same *picture*. It is not promised to give the same *bytes*, because JPEG encoding can differ. Check both: look at the two images side by side, and `cmp` the files. Record both answers.
+
+**Approved by:** Patrick Manswell, November 2, 2026
