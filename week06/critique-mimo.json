@@ -1,0 +1,252 @@
+[
+  {
+    "name": "occasion-01",
+    "model": "xiaomi/mimo-v2.6-flash",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The image shows two identical grey, faceless figures with smooth surfaces typical of mannequins."
+        },
+        {
+          "requirement": "The mannequin wears a suit jacket and a tie",
+          "met": true,
+          "evidence": "The figures are dressed in navy blue suit jackets and light blue ties."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white sign on a clear stand reading 'WEDDING' is visible next to the right-hand figure."
+        },
+        {
+          "requirement": "The background is a plain studio with no people in it",
+          "met": true,
+          "evidence": "The background is a solid, light-grey gradient with no people or objects visible."
+        }
+      ]
+    },
+    "raw": "```json\n{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The image shows two identical grey, faceless figures with smooth surfaces typical of mannequins.\"}, {\"requirement\": \"The mannequin wears a suit jacket and a tie\", \"met\": true, \"evidence\": \"The figures are dressed in navy blue suit jackets and light blue ties.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white sign on a clear stand reading 'WEDDING' is visible next to the right-hand figure.\"}, {\"requirement\": \"The background is a plain studio with no people in it\", \"met\": true, \"evidence\": \"The background is a solid, light-grey gradient with no people or objects visible.\"}]}\n```",
+    "usage": {
+      "in": 1598,
+      "out": 199,
+      "cost": 0.00027944,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "WEDDING",
+    "text_matches": true,
+    "usage_text": {
+      "in": 1424,
+      "out": 5,
+      "cost": 0.00015804,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-02",
+    "model": "xiaomi/mimo-v2.6-flash",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure is a smooth grey faceless mannequin with no facial features."
+        },
+        {
+          "requirement": "The mannequin wears hiking boots",
+          "met": true,
+          "evidence": "Brown hiking boots are on the mannequin's feet (and a spare pair sits beside them)."
+        },
+        {
+          "requirement": "The mannequin wears or carries a backpack",
+          "met": true,
+          "evidence": "A backpack is visible on the mannequin's back with straps over the jacket shoulders."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard on a thin metal stand sits beside the mannequin, though it reads 'HIIKE' rather than 'HIKE'."
+        }
+      ]
+    },
+    "raw": "{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The figure is a smooth grey faceless mannequin with no facial features.\"}, {\"requirement\": \"The mannequin wears hiking boots\", \"met\": true, \"evidence\": \"Brown hiking boots are on the mannequin's feet (and a spare pair sits beside them).\"}, {\"requirement\": \"The mannequin wears or carries a backpack\", \"met\": true, \"evidence\": \"A backpack is visible on the mannequin's back with straps over the jacket shoulders.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white placard on a thin metal stand sits beside the mannequin, though it reads 'HIIKE' rather than 'HIKE'.\"}]}",
+    "usage": {
+      "in": 1598,
+      "out": 201,
+      "cost": 0.00028,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "HIIKE",
+    "text_matches": false,
+    "usage_text": {
+      "in": 1424,
+      "out": 4,
+      "cost": 0.00015776,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-03",
+    "model": "xiaomi/mimo-v2.6-flash",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The image shows a smooth grey mannequin with no facial features standing in the studio."
+        },
+        {
+          "requirement": "The mannequin wears a blazer over a collared shirt",
+          "met": true,
+          "evidence": "A grey blazer is worn over a white button-up shirt with a visible collar."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard reading 'INTERVIEW' sits on a metal stand to the mannequin's right."
+        },
+        {
+          "requirement": "The only text in the image is on the placard",
+          "met": true,
+          "evidence": "The only visible text in the image is the word 'INTERVIEW' on the placard."
+        }
+      ]
+    },
+    "raw": "{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The image shows a smooth grey mannequin with no facial features standing in the studio.\"}, {\"requirement\": \"The mannequin wears a blazer over a collared shirt\", \"met\": true, \"evidence\": \"A grey blazer is worn over a white button-up shirt with a visible collar.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white placard reading 'INTERVIEW' sits on a metal stand to the mannequin's right.\"}, {\"requirement\": \"The only text in the image is on the placard\", \"met\": true, \"evidence\": \"The only visible text in the image is the word 'INTERVIEW' on the placard.\"}]}",
+    "usage": {
+      "in": 1603,
+      "out": 200,
+      "cost": 6.09e-05,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "INTERVIEW",
+    "text_matches": true,
+    "usage_text": {
+      "in": 1424,
+      "out": 3,
+      "cost": 0.00015748,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-04",
+    "model": "xiaomi/mimo-v2.6-flash",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure has grey skin and no facial features, characteristic of a mannequin."
+        },
+        {
+          "requirement": "The mannequin wears a red hooded sweatshirt",
+          "met": true,
+          "evidence": "The figure is wearing a plain red hoodie with a hood and pocket."
+        },
+        {
+          "requirement": "The mannequin wears a knit beanie",
+          "met": true,
+          "evidence": "A red knit cap is visible on the mannequin's head."
+        },
+        {
+          "requirement": "The only text in the image is on the placard",
+          "met": true,
+          "evidence": "The only visible text is 'GAME DAY' on the white placard."
+        }
+      ]
+    },
+    "raw": "```json\n{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The figure has grey skin and no facial features, characteristic of a mannequin.\"}, {\"requirement\": \"The mannequin wears a red hooded sweatshirt\", \"met\": true, \"evidence\": \"The figure is wearing a plain red hoodie with a hood and pocket.\"}, {\"requirement\": \"The mannequin wears a knit beanie\", \"met\": true, \"evidence\": \"A red knit cap is visible on the mannequin's head.\"}, {\"requirement\": \"The only text in the image is on the placard\", \"met\": true, \"evidence\": \"The only visible text is 'GAME DAY' on the white placard.\"}]}\n```",
+    "usage": {
+      "in": 1602,
+      "out": 182,
+      "cost": 0.00022718,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "GAME DAY",
+    "text_matches": true,
+    "usage_text": {
+      "in": 1424,
+      "out": 3,
+      "cost": 0.00015748,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-05",
+    "model": "xiaomi/mimo-v2.6-flash",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure is a smooth grey mannequin with a featureless face."
+        },
+        {
+          "requirement": "The mannequin wears shorts and sandals",
+          "met": true,
+          "evidence": "The mannequin is wearing sand-colored shorts and dark sandals on its feet."
+        },
+        {
+          "requirement": "The mannequin has sunglasses",
+          "met": true,
+          "evidence": "A pair of sunglasses is resting on top of the mannequin's head."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white sign reading 'BEACH' on a tall white stand is positioned to the right of the mannequin."
+        }
+      ]
+    },
+    "raw": "```json\n{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The figure is a smooth grey mannequin with a featureless face.\"}, {\"requirement\": \"The mannequin wears shorts and sandals\", \"met\": true, \"evidence\": \"The mannequin is wearing sand-colored shorts and dark sandals on its feet.\"}, {\"requirement\": \"The mannequin has sunglasses\", \"met\": true, \"evidence\": \"A pair of sunglasses is resting on top of the mannequin's head.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white sign reading 'BEACH' on a tall white stand is positioned to the right of the mannequin.\"}]}\n```",
+    "usage": {
+      "in": 1601,
+      "out": 189,
+      "cost": 0.00027706,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "BEACH",
+    "text_matches": true,
+    "usage_text": {
+      "in": 1424,
+      "out": 3,
+      "cost": 0.00015748,
+      "finish": "stop"
+    }
+  }
+]

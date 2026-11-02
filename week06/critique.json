@@ -1,0 +1,252 @@
+[
+  {
+    "name": "occasion-01",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The image shows two faceless grey mannequins with no real people present."
+        },
+        {
+          "requirement": "The mannequin wears a suit jacket and a tie",
+          "met": true,
+          "evidence": "Both mannequins are wearing navy suit jackets with white shirts and light blue ties."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard on a clear acrylic stand reading 'WEDDING' is visible beside the mannequins."
+        },
+        {
+          "requirement": "The background is a plain studio with no people in it",
+          "met": true,
+          "evidence": "The background is a plain light-grey studio with soft even lighting and no other people visible."
+        }
+      ]
+    },
+    "raw": "{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"The image shows two faceless grey mannequins with no real people present.\"}, {\"requirement\": \"The mannequin wears a suit jacket and a tie\", \"met\": true, \"evidence\": \"Both mannequins are wearing navy suit jackets with white shirts and light blue ties.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white placard on a clear acrylic stand reading 'WEDDING' is visible beside the mannequins.\"}, {\"requirement\": \"The background is a plain studio with no people in it\", \"met\": true, \"evidence\": \"The background is a plain light-grey studio with soft even lighting and no other people visible.\"}]}",
+    "usage": {
+      "in": 914,
+      "out": 502,
+      "cost": 0.0008766,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "WEDDING",
+    "text_matches": true,
+    "usage_text": {
+      "in": 753,
+      "out": 42,
+      "cost": 0.0002763,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-02",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure is a smooth grey mannequin with no facial features."
+        },
+        {
+          "requirement": "The mannequin wears hiking boots",
+          "met": true,
+          "evidence": "Brown hiking boots are visible on the mannequin's feet."
+        },
+        {
+          "requirement": "The mannequin wears or carries a backpack",
+          "met": true,
+          "evidence": "Backpack straps and the backpack body are visible on the mannequin."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white HIKE placard is mounted on a stand beside the mannequin."
+        }
+      ]
+    },
+    "raw": "{\"checks\":[{\"requirement\":\"There is a faceless display mannequin, not a real person\",\"met\":true,\"evidence\":\"The figure is a smooth grey mannequin with no facial features.\"},{\"requirement\":\"The mannequin wears hiking boots\",\"met\":true,\"evidence\":\"Brown hiking boots are visible on the mannequin's feet.\"},{\"requirement\":\"The mannequin wears or carries a backpack\",\"met\":true,\"evidence\":\"Backpack straps and the backpack body are visible on the mannequin.\"},{\"requirement\":\"There is a placard on a stand beside the mannequin\",\"met\":true,\"evidence\":\"A white HIKE placard is mounted on a stand beside the mannequin.\"}]}",
+    "usage": {
+      "in": 2245,
+      "out": 270,
+      "cost": 0.00096678,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "HIIKE",
+    "text_matches": false,
+    "usage_text": {
+      "in": 753,
+      "out": 41,
+      "cost": 0.0002751,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-03",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "A smooth grey mannequin with no facial features is visible in the center of the image."
+        },
+        {
+          "requirement": "The mannequin wears a blazer over a collared shirt",
+          "met": true,
+          "evidence": "A charcoal grey blazer is worn over a white collared button-up shirt."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard on a metal stand is positioned to the right of the mannequin."
+        },
+        {
+          "requirement": "The only text in the image is on the placard",
+          "met": true,
+          "evidence": "The only visible text is 'INTERVIEW' on the placard; no other text appears in the image."
+        }
+      ]
+    },
+    "raw": "{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"A smooth grey mannequin with no facial features is visible in the center of the image.\"}, {\"requirement\": \"The mannequin wears a blazer over a collared shirt\", \"met\": true, \"evidence\": \"A charcoal grey blazer is worn over a white collared button-up shirt.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white placard on a metal stand is positioned to the right of the mannequin.\"}, {\"requirement\": \"The only text in the image is on the placard\", \"met\": true, \"evidence\": \"The only visible text is 'INTERVIEW' on the placard; no other text appears in the image.\"}]}",
+    "usage": {
+      "in": 2229,
+      "out": 324,
+      "cost": 0.00102678,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "INTERVIEW",
+    "text_matches": true,
+    "usage_text": {
+      "in": 753,
+      "out": 35,
+      "cost": 0.0002679,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-04",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure has a smooth grey, featureless head and articulated mannequin hands."
+        },
+        {
+          "requirement": "The mannequin wears a red hooded sweatshirt",
+          "met": true,
+          "evidence": "The mannequin is wearing a plain red hooded sweatshirt."
+        },
+        {
+          "requirement": "The mannequin wears a knit beanie",
+          "met": true,
+          "evidence": "A red ribbed knit beanie is visible on the mannequin's head."
+        },
+        {
+          "requirement": "The only text in the image is on the placard",
+          "met": true,
+          "evidence": "The placard is the only visible text-bearing element and reads \"GAME DAY\"."
+        }
+      ]
+    },
+    "raw": "\n\n{\"checks\":[{\"requirement\":\"There is a faceless display mannequin, not a real person\",\"met\":true,\"evidence\":\"The figure has a smooth grey, featureless head and articulated mannequin hands.\"},{\"requirement\":\"The mannequin wears a red hooded sweatshirt\",\"met\":true,\"evidence\":\"The mannequin is wearing a plain red hooded sweatshirt.\"},{\"requirement\":\"The mannequin wears a knit beanie\",\"met\":true,\"evidence\":\"A red ribbed knit beanie is visible on the mannequin's head.\"},{\"requirement\":\"The only text in the image is on the placard\",\"met\":true,\"evidence\":\"The placard is the only visible text-bearing element and reads \\\"GAME DAY\\\".\"}]}",
+    "usage": {
+      "in": 2252,
+      "out": 249,
+      "cost": 0.0009276,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "GAME DAY",
+    "text_matches": true,
+    "usage_text": {
+      "in": 753,
+      "out": 45,
+      "cost": 0.0002799,
+      "finish": "stop"
+    }
+  },
+  {
+    "name": "occasion-05",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "A smooth grey mannequin with no facial features stands in the studio."
+        },
+        {
+          "requirement": "The mannequin wears shorts and sandals",
+          "met": true,
+          "evidence": "The mannequin is dressed in tan/sand-colored shorts and wears sandals on its feet."
+        },
+        {
+          "requirement": "The mannequin has sunglasses",
+          "met": true,
+          "evidence": "Sunglasses are resting on top of the mannequin's head."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard reading 'BEACH' in bold black letters is mounted on a white stand next to the mannequin."
+        }
+      ]
+    },
+    "raw": "{\"checks\": [{\"requirement\": \"There is a faceless display mannequin, not a real person\", \"met\": true, \"evidence\": \"A smooth grey mannequin with no facial features stands in the studio.\"}, {\"requirement\": \"The mannequin wears shorts and sandals\", \"met\": true, \"evidence\": \"The mannequin is dressed in tan/sand-colored shorts and wears sandals on its feet.\"}, {\"requirement\": \"The mannequin has sunglasses\", \"met\": true, \"evidence\": \"Sunglasses are resting on top of the mannequin's head.\"}, {\"requirement\": \"There is a placard on a stand beside the mannequin\", \"met\": true, \"evidence\": \"A white placard reading 'BEACH' in bold black letters is mounted on a white stand next to the mannequin.\"}]}",
+    "usage": {
+      "in": 2224,
+      "out": 299,
+      "cost": 0.00099528,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "BEACH",
+    "text_matches": true,
+    "usage_text": {
+      "in": 753,
+      "out": 36,
+      "cost": 0.0002691,
+      "finish": "stop"
+    }
+  }
+]

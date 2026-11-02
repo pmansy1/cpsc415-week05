@@ -1,0 +1,52 @@
+[
+  {
+    "name": "occasion-02",
+    "model": "minimax/minimax-m3",
+    "critique": {
+      "checks": [
+        {
+          "requirement": "There is a faceless display mannequin, not a real person",
+          "met": true,
+          "evidence": "The figure is a smooth grey, faceless display mannequin."
+        },
+        {
+          "requirement": "The mannequin wears hiking boots",
+          "met": true,
+          "evidence": "The mannequin is wearing brown lace-up hiking boots."
+        },
+        {
+          "requirement": "The mannequin wears or carries a backpack",
+          "met": true,
+          "evidence": "Backpack straps and part of the pack are visible on the mannequin."
+        },
+        {
+          "requirement": "There is a placard on a stand beside the mannequin",
+          "met": true,
+          "evidence": "A white placard reading \u201cHIKE\u201d is mounted on a stand beside the mannequin."
+        }
+      ]
+    },
+    "raw": "{\"checks\":[{\"requirement\":\"There is a faceless display mannequin, not a real person\",\"met\":true,\"evidence\":\"The figure is a smooth grey, faceless display mannequin.\"},{\"requirement\":\"The mannequin wears hiking boots\",\"met\":true,\"evidence\":\"The mannequin is wearing brown lace-up hiking boots.\"},{\"requirement\":\"The mannequin wears or carries a backpack\",\"met\":true,\"evidence\":\"Backpack straps and part of the pack are visible on the mannequin.\"},{\"requirement\":\"There is a placard on a stand beside the mannequin\",\"met\":true,\"evidence\":\"A white placard reading \u201cHIKE\u201d is mounted on a stand beside the mannequin.\"}]}",
+    "usage": {
+      "in": 1771,
+      "out": 211,
+      "cost": 0.00073818,
+      "finish": "stop"
+    },
+    "check": {
+      "ok": true,
+      "problems": [],
+      "unmet": [],
+      "missing": [],
+      "extra": []
+    },
+    "text_read": "HIKE",
+    "text_matches": true,
+    "usage_text": {
+      "in": 753,
+      "out": 24,
+      "cost": 0.0002547,
+      "finish": "stop"
+    }
+  }
+]
